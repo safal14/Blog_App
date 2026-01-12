@@ -30,6 +30,7 @@ gem "solid_cable"
 
 gem 'pg', '~> 1.6', '>= 1.6.2'
 
+gem 'devise', '~> 4.9', '>= 4.9.4'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
