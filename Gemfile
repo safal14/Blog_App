@@ -28,6 +28,7 @@ gem "solid_cache"
 gem "solid_queue"
 gem "solid_cable"
 
+gem 'pg', '~> 1.6', '>= 1.6.2'
 
 
 # Reduces boot times through caching; required in config/boot.rb
