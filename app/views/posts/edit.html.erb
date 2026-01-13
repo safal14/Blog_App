@@ -1,2 +1,16 @@
-<h1>Posts#edit</h1>
-<p>Find me in app/views/posts/edit.html.erb</p>
+<h1>Edit Blog Post</h1>
+
+<%= form_with model: @post, local: true do |f| %>
+  <div class="mb-3">
+    <label>Title</label>
+    <%= f.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <label>Content</label>
+    <%= f.text_area :content, class: "form-control", rows: 8 %>
+  </div>
+
+  <%= f.submit "Save", class: "btn btn-primary" %>
+  <%= link_to "Cancel", @post, class: "btn btn-outline-secondary ms-2" %>
+<% end %>

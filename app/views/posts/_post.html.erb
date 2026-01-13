@@ -1,0 +1,22 @@
+<!-- app/views/posts/_post.html.erb -->
+<div class="col-md-6 col-lg-4 mb-4">
+  <div class="card h-100 shadow-sm">
+    <div class="card-body">
+      <h5 class="card-title">
+        <%= link_to post.title, post %>
+      </h5>
+      <p class="card-text text-muted">
+        <%= post.content.truncate(120, separator: ' ') %>
+      </p>
+      <p class="card-text">
+        <small class="text-muted">
+          By <%= post.user.first_name.presence || post.user.email %>
+          · <%= time_ago_in_words(post.created_at) %> ago
+        </small>
+      </p>
+    </div>
+    <div class="card-footer bg-transparent border-0">
+      <%= link_to "Read More →", post, class: "btn btn-outline-primary btn-sm" %>
+    </div>
+  </div>
+</div>
