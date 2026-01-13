@@ -5,3 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :confirmable
 end
+class User < ApplicationRecord
+  # ... existing devise line ...
+
+  has_many :posts, dependent: :destroy
+end
