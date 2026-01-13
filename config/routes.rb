@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get "posts/update"
   get "posts/destroy"
   devise_for :users
+  root "posts#index"
   resources :posts
   devise_scope :user do
     # Logged-out users see sign-up form at root
