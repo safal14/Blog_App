@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
+  resources :posts
   devise_scope :user do
     # Logged-out users see sign-up form at root
     unauthenticated do
