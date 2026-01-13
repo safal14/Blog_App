@@ -8,7 +8,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    
     <%= yield :head %>
 
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
@@ -24,6 +24,11 @@
   </head>
 
   <body>
+  <% flash.each do |type, message| %>
+  <div style="padding: 15px; margin-bottom: 20px; border-radius: 4px; <%= type == 'notice' ? 'background-color: #d4edda; color: #155724;' : 'background-color: #f8d7da; color: #721c24;' %>">
+    <%= message %>
+  </div>
+<% end %>
     <%= yield %>
   </body>
 </html>
