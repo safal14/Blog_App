@@ -28,11 +28,14 @@ gem "solid_cache"
 gem "solid_queue"
 gem "solid_cable"
 
+# postgres
 gem 'pg', '~> 1.6', '>= 1.6.2'
-
+# Devise 
 gem 'devise', '~> 4.9', '>= 4.9.4'
-
+# letter opener for email simulation
 gem 'letter_opener', '~> 1.10'
+# pundit for authorization
+gem 'pundit', '~> 2.5', '>= 2.5.2'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
