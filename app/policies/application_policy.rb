@@ -1,20 +1,23 @@
-class PostPolicy < ApplicationPolicy
-  class Scope < Scope
-    def resolve
-      scope.all   # everyone can see all posts
-    end
+# frozen_string_literal: true
+
+class ApplicationPolicy
+  attr_reader :user, :record
+
+  def initialize(user, record)
+    @user = user
+    @record = record
   end
 
   def index?
-    true        # anyone can see the list
+    false
   end
 
   def show?
-    true        # anyone can view a single post
+    false
   end
 
   def create?
-    user.present?   # must be logged in
+    false
   end
 
   def new?
@@ -22,7 +25,7 @@ class PostPolicy < ApplicationPolicy
   end
 
   def update?
-    user.present? && (record.user == user || user.admin?)
+    false
   end
 
   def edit?
@@ -30,6 +33,21 @@ class PostPolicy < ApplicationPolicy
   end
 
   def destroy?
-    update?     # same rules as update
+    false
+  end
+
+  class Scope
+    def initialize(user, scope)
+      @user = user
+      @scope = scope
+    end
+
+    def resolve
+      raise NoMethodError, "You must define #resolve in #{self.class}"
+    end
+
+    private
+
+    attr_reader :user, :scope
   end
 end
