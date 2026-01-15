@@ -22,7 +22,21 @@ end
 
  private
 
-  def user_not_authorized
-    flash[:danger] = "You are not authorized to perform this action."
-    redirect_to(request.referrer || root_path)
-  end
+  def user_not_authorized(exception)
+  # More helpful messages depending on what was denied
+  message = case exception.query.to_s
+            when "index?", "show?"
+              "You don't have permission to view this content."
+            when "new?", "create?"
+              "Only authors and administrators can create new posts."
+            when "edit?", "update?"
+              "You can only edit your own posts (or you need admin rights)."
+            when "destroy?"
+              "You can only delete your own posts."
+            else
+              "You are not authorized to perform this action."
+            end
+
+  flash[:alert] = message
+  redirect_to(request.referrer || root_path)
+end
