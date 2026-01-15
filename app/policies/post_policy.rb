@@ -1,10 +1,18 @@
 class PostPolicy < ApplicationPolicy
   class Scope < Scope
-    def resolve
-      scope.all   # everyone can see all posts
+ def resolve
+      if user&.admin?
+        scope.all                                 # admins see everything
+      elsif user.present? && (user.author? || user.reader?)
+        # Authors see: own drafts + all published
+        # Readers see: only published
+        scope.where(user: user).or(scope.published)
+      else
+        # Guests (not logged in) see only published
+        scope.published
+      end
     end
   end
-
   def index?
     true        # anyone can see the list
   end
