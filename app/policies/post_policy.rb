@@ -17,8 +17,9 @@ class PostPolicy < ApplicationPolicy
     true        # anyone can see the list
   end
 
-  def show?
-    true        # anyone can view a single post
+def show?
+  record.published? || record.user == user || user&.admin?
+ # anyone can view a single post
   end
 
   def create?

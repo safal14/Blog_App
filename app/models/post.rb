@@ -1,7 +1,7 @@
 class Post < ApplicationRecord
   belongs_to :user
 
-enum :status, { draft: 0, published: 1 }, default: :draft
+enum :status, { draft: 0, published: 1 }
      scope :published, -> { where(status: :published) }
      scope :draft,     -> { where(status: :draft) }
  

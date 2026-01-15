@@ -59,6 +59,11 @@
 
           <ul class="navbar-nav ms-auto align-items-lg-center">
             <% if user_signed_in? %>
+            <% if user_signed_in? && current_user.admin? %>
+  <li class="nav-item">
+    <%= link_to "Admin Panel", admin_users_path, class: "nav-link" %>
+  </li>
+<% end %>
               <li class="nav-item">
               <span class="nav-link">
                Hi <%= current_user.first_name || current_user.email %>

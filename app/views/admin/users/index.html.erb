@@ -1,0 +1,37 @@
+<h1>Admin Panel - Users</h1>
+
+<p style="margin: 1.5rem 0;">
+  <%= link_to "New User", new_admin_user_path, class: "btn btn-primary" %>
+</p>
+
+<table style="width:100%; border-collapse: collapse;">
+  <thead>
+    <tr style="background:#f0f0f0;">
+      <th style="padding:10px; border:1px solid #ddd;">ID</th>
+      <th style="padding:10px; border:1px solid #ddd;">Email</th>
+      <th style="padding:10px; border:1px solid #ddd;">Fitst_Name</th>
+      <th style="padding:10px; border:1px solid #ddd;">Litst_Name</th>
+      <th style="padding:10px; border:1px solid #ddd;">Role</th>
+      <th style="padding:10px; border:1px solid #ddd;">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td style="padding:10px; border:1px solid #ddd;"><%= user.id %></td>
+        <td style="padding:10px; border:1px solid #ddd;"><%= user.email %></td>
+        <td style="padding:10px; border:1px solid #ddd;"><%= user.first_name || "—" %></td>
+        <td style="padding:10px; border:1px solid #ddd;"><%= user.last_name || "—" %></td>
+        <td style="padding:10px; border:1px solid #ddd;"><%= user.role %></td>
+        <td style="padding:10px; border:1px solid #ddd; white-space: nowrap;">
+<%= link_to "Edit", edit_admin_user_path(user),
+            class: "btn btn-sm btn-primary",
+            style: "padding: 4px 12px; text-decoration: none;" %> &nbsp;          <%= button_to "Delete", admin_user_path(user),
+              method: :delete,
+              data: { confirm: "Are you sure?" },
+              style: "color: white; background: #dc3545; border: none; padding: 4px 8px; cursor: pointer; margin-left: 10px;" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

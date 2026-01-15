@@ -1,0 +1,36 @@
+<%= form_with model: [:admin, @user] do |f| %>
+  <div style="margin-bottom: 1rem;">
+    <%= f.label :email %><br>
+    <%= f.email_field :email, required: true, style: "width:300px;" %>
+  </div>
+
+  <div style="margin-bottom: 1rem;">
+    <%= f.label :first_name %><br>
+    <%= f.text_field :first_name, style: "width:300px;" %>
+  </div>
+    <div style="margin-bottom: 1rem;">
+    <%= f.label :last_name %><br>
+    <%= f.text_field :last_name, style: "width:300px;" %>
+  </div>
+
+  <% if @user.new_record? %>
+    <div style="margin-bottom: 1rem;">
+      <%= f.label :password %><br>
+      <%= f.password_field :password, style: "width:300px;" %>
+    </div>
+    <div style="margin-bottom: 1rem;">
+      <%= f.label :password_confirmation %><br>
+      <%= f.password_field :password_confirmation, style: "width:300px;" %>
+    </div>
+  <% end %>
+
+  <div style="margin-bottom: 1rem;">
+    <%= f.label :role %><br>
+    <%= f.select :role, User.roles.keys.map { |k| [k.to_s.titleize, k] }, {}, style: "width:300px;" %>
+  </div>
+
+
+  <div style="margin-top: 1.5rem;">
+    <%= f.submit "Save", style: "padding: 8px 20px; background:#007bff; color:white; border:none; cursor:pointer;" %>
+  </div>
+<% end %>
