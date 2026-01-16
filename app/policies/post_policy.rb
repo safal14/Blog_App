@@ -1,6 +1,6 @@
 class PostPolicy < ApplicationPolicy
   class Scope < Scope
- def resolve
+  def resolve
       if user&.admin?
         scope.all                                 # admins see everything
       elsif user.present? && (user.author? || user.reader?)

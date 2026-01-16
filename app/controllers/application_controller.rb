@@ -18,25 +18,25 @@ def after_sign_in_path_for(resource)
   devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name])
   devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name])
 end
-end
+
 
  private
+def user_not_authorized(exception)
+  action = exception.query
+  record = exception.record
 
-  def user_not_authorized(exception)
-  # More helpful messages depending on what was denied
-  message = case exception.query.to_s
-            when "index?", "show?"
-              "You don't have permission to view this content."
-            when "new?", "create?"
-              "Only authors and administrators can create new posts."
-            when "edit?", "update?"
-              "You can only edit your own posts (or you need admin rights)."
-            when "destroy?"
-              "You can only delete your own posts."
-            else
-              "You are not authorized to perform this action."
-            end
+  # Get the correct policy instance
+  policy = Pundit.policy!(current_user, record)
 
-  flash[:alert] = message
-  redirect_to(request.referrer || root_path)
+  # Call error_message if defined
+  message =
+    if policy.respond_to?(:error_message)
+      policy.error_message(action)
+    else
+      "You are not authorized to perform #{action.to_s.chomp('?')}."
+    end
+
+  redirect_back fallback_location: root_path, alert: message
+end
+
 end
