@@ -1,0 +1,15 @@
+<h1 class="mb-5 fw-light text-center">All Blog Posts</h1>
+
+<% if @posts.any? %>
+  <div class="row g-4">
+    <%= render partial: "post", collection: @posts, as: :post %>
+  </div>
+<% else %>
+  <div class="text-center py-5 my-5">
+    <div class="display-6 text-muted mb-3">No posts yet</div>
+    <p class="lead text-secondary mb-4">
+      Be the first to share your story!
+    </p>
+    <%= link_to "Create New Post", new_post_path, class: "btn btn-primary btn-lg px-5" %>
+  </div>
+<% end %>
