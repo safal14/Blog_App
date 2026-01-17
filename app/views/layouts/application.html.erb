@@ -59,14 +59,24 @@
 
           <ul class="navbar-nav ms-auto align-items-lg-center">
             <% if user_signed_in? %>
+            <% if user_signed_in? && current_user.admin? %>
+  <li class="nav-item">
+    <%= link_to "Admin Panel", admin_users_path, class: "nav-link" %>
+  </li>
+<% end %>
               <li class="nav-item">
-                <span class="nav-link text-muted">
-                  Hi, <strong><%= current_user.first_name.presence || current_user.email.split('@').first %></strong>
-                </span>
+              <span class="nav-link">
+               Hi <%= current_user.first_name || current_user.email %>
+               <span class="badge <%= role_badge_class(current_user.role) %> ms-1">
+                <%= current_user.role.capitalize %>
+              </span>
+             </span>
               </li>
+              <% if policy(Post.new).create? %>
               <li class="nav-item">
-                <%= link_to "New Post", new_post_path, class: "nav-link" %>
-              </li>
+                  <%= link_to "New Post", new_post_path, class: "nav-link" %>
+               </li>
+               <% end %>
               <li class="nav-item">
                 <%= link_to "Profile", edit_user_registration_path, class: "nav-link" %>
               </li>

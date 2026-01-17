@@ -14,7 +14,16 @@ Rails.application.routes.draw do
     unauthenticated do
       root to: "devise/registrations#new", as: :unauthenticated_root
     end
+  namespace :admin do
+    resources :users, only: [:index, :new, :create, :edit, :update, :destroy] do
+      member do
+        post :activate
+        post :deactivate
+      end
+    end
 
+    root to: "users#index"          # so /admin shows the users list
+  end
     # Logged-in users see your home#index (or whatever you want)
     authenticated do
       root to: "home#index", as: :authenticated_root

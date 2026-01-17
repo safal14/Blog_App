@@ -18,11 +18,25 @@ def after_sign_in_path_for(resource)
   devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name])
   devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name])
 end
-end
+
 
  private
+def user_not_authorized(exception)
+  action = exception.query
+  record = exception.record
 
-  def user_not_authorized
-    flash[:danger] = "You are not authorized to perform this action."
-    redirect_to(request.referrer || root_path)
-  end
+  # Get the correct policy instance
+  policy = Pundit.policy!(current_user, record)
+
+  # Call error_message if defined
+  message =
+    if policy.respond_to?(:error_message)
+      policy.error_message(action)
+    else
+      "You are not authorized to perform #{action.to_s.chomp('?')}."
+    end
+
+  redirect_back fallback_location: root_path, alert: message
+end
+
+end

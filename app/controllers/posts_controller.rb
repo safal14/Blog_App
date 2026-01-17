@@ -15,30 +15,54 @@ class PostsController < ApplicationController
     authorize @post
   end
 
-  def create
-    @post = current_user.posts.build(post_params)
-    authorize @post
+def create
+  @post = current_user.posts.build(post_params)
+  authorize @post
 
-    if @post.save
-      redirect_to @post, notice: "Post was successfully created."
-    else
-      render :new, status: :unprocessable_entity
-    end
+  # Decide status from button text
+  if params[:commit] == "Save as Draft"
+    @post.status = :draft
+  elsif params[:commit] == "Publish"
+    @post.status = :published
+  else
+    @post.status = :draft   # fallback
   end
+
+  if @post.save
+    if @post.draft?
+      redirect_to edit_post_path(@post), notice: "Draft saved successfully."
+    else
+      redirect_to @post, notice: "Post published successfully."
+    end
+  else
+    render :new, status: :unprocessable_entity
+  end
+end
 
   def edit
     authorize @post
   end
 
-  def update
-    authorize @post
+def update
+  authorize @post
 
-    if @post.update(post_params)
-      redirect_to @post, notice: "Post was successfully updated."
-    else
-      render :edit, status: :unprocessable_entity
-    end
+  # Decide status from button text
+  if params[:commit] == "Save as Draft"
+    @post.status = :draft
+  elsif params[:commit] == "Publish"
+    @post.status = :published
   end
+
+  if @post.update(post_params)
+    if @post.draft?
+      redirect_to edit_post_path(@post), notice: "Draft updated."
+    else
+      redirect_to @post, notice: "Post updated and published."
+    end
+  else
+    render :edit, status: :unprocessable_entity
+  end
+end
 
   def destroy
     authorize @post

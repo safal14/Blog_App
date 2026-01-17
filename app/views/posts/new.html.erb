@@ -12,7 +12,14 @@
   </div>
 
   <div class="d-flex gap-3 flex-wrap">
-    <%= f.submit "Publish Post", class: "btn btn-primary btn-lg px-5" %>
+    <button type="submit" name="commit" value="Save as Draft" class="btn btn-outline-secondary btn-lg px-5">
+      Save as Draft
+    </button>
+
+    <button type="submit" name="commit" value="Publish" class="btn btn-primary btn-lg px-5">
+      Publish
+    </button>
+
     <%= link_to "Cancel", posts_path, class: "btn btn-outline-secondary btn-lg px-5" %>
   </div>
 <% end %>

@@ -7,6 +7,24 @@ class ApplicationPolicy
     @user = user
     @record = record
   end
+   def error_message(action)
+  case action
+  when :index?
+    "You cannot access the posts list."
+  when :show?
+    "You cannot view this post."
+  when :create?, :new?
+    "Only authors or admins can create posts."
+  when :update?, :edit?
+    "You can edit only your own post."
+  when :destroy?
+    "You are not allowed to delete this post."
+  else
+    "Unauthorized action."
+  end
+end
+
+
 
   def index?
     false
