@@ -31,7 +31,7 @@ gem "solid_cable"
 # postgres
 gem 'pg', '~> 1.6', '>= 1.6.2'
 # Devise 
-gem 'devise', '~> 4.9', '>= 4.9.4'
+gem 'devise', '~> 5.0'
 # letter opener for email simulation
 gem 'letter_opener', '~> 1.10'
 # pundit for authorization
